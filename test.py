@@ -49,5 +49,13 @@ class MyCodeTestCase(unittest.TestCase):
         val = new_count.code_count()
         self.assertEqual(val, 37)
 
+    def test_code_file_path(self):
+        with self.assertRaises(Exception):
+            with open(os.getenv("CODE_PATH1"), os.getenv("OPERATION")) as file:
+                reader = csv.reader(file)
+                for rows in reader:
+                    print(rows)
+
+
 if __name__ == '__main__':
     unittest.main()
