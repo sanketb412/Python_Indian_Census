@@ -42,8 +42,38 @@ class StateCensusAnalyser:
         finally:
             file.close()
 
+class CSVStates:
+    def __init__(self, path, operation):
+        self.path = path
+        self.operation = operation
+
+    def code_file(self):
+        print("\n\tState code Data:-")  
+        try:
+            with open( self.path, self.operation) as file:
+                reader = csv.reader(file)
+                for rows in reader:
+                    print(rows)
+        except:
+            print("Something went Wrong. File path is not correct..!!")
+
+    def code_count(self):
+        try:
+            with open(self.path, self.operation) as file:
+                reader = csv.reader(file)
+
+                data = list(reader)
+                row_count = len(data)
+                return row_count - 1
+        except:
+            print("Something went Wrong. File path is not correct..!!")
+        finally:
+            file.close()
+
 if __name__ == '__main__':
     census_obj = StateCensusAnalyser(os.getenv('CENSUS_PATH'), os.getenv('OPERATION'))
     census_obj.census_file()
 
+    code_obj = CSVStates(os.getenv("CODE_PATH"), os.getenv('OPERATION'))
+    code_obj.code_file()
    
