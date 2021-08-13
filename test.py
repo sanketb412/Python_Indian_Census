@@ -56,6 +56,11 @@ class MyCodeTestCase(unittest.TestCase):
                 for rows in reader:
                     print(rows)
 
+    def test_code_file_type(self):
+        x, file_extension2 = os.path.split( os.getenv("CODE_PATH"))    
+        code_extension_file = file_extension2
+        self.assertIn('.csv', code_extension_file)  
+
 
 if __name__ == '__main__':
     unittest.main()
