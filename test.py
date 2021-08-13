@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 sys.path.append(",")
 
-from State_analyser import StateCensusAnalyser
+from State_analyser import StateCensusAnalyser, CSVStates
 from detect_delimiter import detect
 
 
@@ -43,5 +43,11 @@ class MyStateTestCase(unittest.TestCase):
                 print(rows)
                 self.assertEqual(detect(rows), ',')
                     
+class MyCodeTestCase(unittest.TestCase):
+    def test_count_number_of_codes_rows(self):
+        new_count = CSVStates( os.getenv("CODE_PATH"),os.getenv("OPERATION"))
+        val = new_count.code_count()
+        self.assertEqual(val, 37)
+
 if __name__ == '__main__':
     unittest.main()
