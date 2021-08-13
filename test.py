@@ -30,6 +30,10 @@ class MyStateTestCase(unittest.TestCase):
                 for rows in file_reader:
                     print(rows)
 
+    def test_census_file_type(self):
+        y, file_extension1 = os.path.split(os.getenv("CENSUS_PATH"))    
+        extension = file_extension1
+        self.assertIn('.csv', extension) 
                     
 if __name__ == '__main__':
     unittest.main()
