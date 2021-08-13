@@ -9,6 +9,7 @@
 import unittest
 import sys
 import os
+import csv
 from dotenv import load_dotenv
 load_dotenv()
 sys.path.append(",")
@@ -34,6 +35,13 @@ class MyStateTestCase(unittest.TestCase):
         y, file_extension1 = os.path.split(os.getenv("CENSUS_PATH"))    
         extension = file_extension1
         self.assertIn('.csv', extension) 
+
+    def test_census_file_delimiter(self):
+        with open( os.getenv("CENSUS_PATH"), 'r') as file:
+            reader = csv.reader(file)
+            for rows in reader:
+                print(rows)
+                self.assertEqual(detect(rows), ',')
                     
 if __name__ == '__main__':
     unittest.main()
