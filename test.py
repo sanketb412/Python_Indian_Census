@@ -61,6 +61,12 @@ class MyCodeTestCase(unittest.TestCase):
         code_extension_file = file_extension2
         self.assertIn('.csv', code_extension_file)  
 
-
+    def test_code_file_delimiter(self):
+            with open(os.getenv("CODE_PATH"), 'r') as file:
+                reader = csv.reader(file)
+                for rows in reader:
+                    print(rows)
+                    self.assertEqual(detect(rows, default=','), ',')
+                    
 if __name__ == '__main__':
     unittest.main()
