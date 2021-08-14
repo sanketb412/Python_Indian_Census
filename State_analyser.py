@@ -70,9 +70,15 @@ class CSVStates:
         finally:
             file.close()
 
+class StateCensusData(StateCensusAnalyser, CSVStates):
+    def census(self):
+        census_obj = StateCensusAnalyser(os.getenv("CENSUS_PATH"), os.getenv("OPERATION"))
+        census_obj.census_file()
+        print(census_obj.census_count())
+
 if __name__ == '__main__':
-    census_obj = StateCensusAnalyser(os.getenv('CENSUS_PATH'), os.getenv('OPERATION'))
-    census_obj.census_file()
+    merge_obj = StateCensusData(StateCensusAnalyser, CSVStates)
+    merge_obj.census()
 
     code_obj = CSVStates(os.getenv("CODE_PATH"), os.getenv('OPERATION'))
     code_obj.code_file()
