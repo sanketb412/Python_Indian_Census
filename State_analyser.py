@@ -10,6 +10,8 @@ import csv
 import os
 from dotenv import load_dotenv
 load_dotenv()
+import pandas as pd
+
 print("Welcome to Indian State Census Analyser")
 
 class StateCensusAnalyser:
@@ -80,6 +82,18 @@ class StateCensusData(StateCensusAnalyser, CSVStates):
         code_obj = CSVStates(os.getenv("CODE_PATH"), os.getenv("OPERATION"))
         code_obj.code_file()
         print(code_obj.code_count())
+
+class Dictionary:
+    def dictionary_data(self):
+
+        data1 = pd.read_csv(os.getenv('CODE_PATH'))
+        data2 = pd.read_csv(os.getenv('CENSUS_PATH'))
+
+        how ='left'
+        output2 = pd.merge(data1, data2, on='State', how='left')
+
+        print(output2.to_string(index=False))
+        output2.to_csv(os.getenv('NEW_CODE_CENSUS_PATH'),sep=',')
 
 if __name__ == '__main__':
     merge_obj = StateCensusData(StateCensusAnalyser, CSVStates)
