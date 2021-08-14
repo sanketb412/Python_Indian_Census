@@ -76,10 +76,13 @@ class StateCensusData(StateCensusAnalyser, CSVStates):
         census_obj.census_file()
         print(census_obj.census_count())
 
+    def code(self):
+        code_obj = CSVStates(os.getenv("CODE_PATH"), os.getenv("OPERATION"))
+        code_obj.code_file()
+        print(code_obj.code_count())
+
 if __name__ == '__main__':
     merge_obj = StateCensusData(StateCensusAnalyser, CSVStates)
     merge_obj.census()
-
-    code_obj = CSVStates(os.getenv("CODE_PATH"), os.getenv('OPERATION'))
-    code_obj.code_file()
+    merge_obj.code()
    
