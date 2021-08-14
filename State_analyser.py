@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import pandas as pd
+import json
 
 print("Welcome to Indian State Census Analyser")
 
@@ -95,8 +96,28 @@ class Dictionary:
         print(output2.to_string(index=False))
         output2.to_csv(os.getenv('NEW_CODE_CENSUS_PATH'),sep=',')
 
+    def make_json(self, csvFilePath, jsonFilePath):
+
+        data = {}
+
+        with open(csvFilePath, encoding='utf-8') as csvf:
+            csvReader = csv.DictReader(csvf)
+
+            for rows in csvReader:
+                key = rows['SrNo']
+                data[key] = rows
+
+        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+            jsonf.write(json.dumps(data, indent= 2))
+
+
 if __name__ == '__main__':
     merge_obj = StateCensusData(StateCensusAnalyser, CSVStates)
     merge_obj.census()
     merge_obj.code()
+
+    dic_obj = Dictionary()
+    dic_obj.dictionary_data()
+
+    dic_obj.make_json(os.getenv('NEW_CODE_CENSUS_PATH'),os.getenv('JSON_PATH'))
    
